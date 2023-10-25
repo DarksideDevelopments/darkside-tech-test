@@ -16,6 +16,8 @@ The principles we prioritize include security, performance, readability, testabi
 
 Furthermore, strive to achieve a clear separation of concerns between the various components of your solution. Utilizing the MVC pattern, for instance, can facilitate this separation.
 
+If Docker is not utilized, your application should retrieve and store data by reading from and writing to a file on disk, instead of utilizing a relational or NoSQL solution for the datastore.
+
 ## The Deliverable
 
 * A .zip / git repository link (with access)
