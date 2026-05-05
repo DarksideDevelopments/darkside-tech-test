@@ -1,39 +1,99 @@
-# Darkside Developments Technical Test
+# Junior Web Developer — Technical Take-Home Task
 
-## Introduction
+| | |
+|---|---|
+| **Time allowance** | 2–3 hours (please don't spend significantly more) |
+| **Submission** | Send a link to a public GitHub repository, or a ZIP file by email |
+| **Tech stack** | PHP / Laravel for the backend & plain HTML/CSS/JS or Vue.js for the frontend |
+| **Prerequisites** | PHP 8+, Composer, and Node/npm installed locally |
 
-Welcome to the Darkside Developments Test!
+---
 
-We hope that you find this exercise fun. There are no trick questions; We want to see your solution to a simple problem with well thought-out and well structured code.
+## Overview
 
-## What is being Tested?
+You've been asked to build a small internal tool called the **Order Note Board**. It is a single-page web application that lets a warehouse team leave short notes against order numbers, for example flagging a packaging issue or a priority rush job.
 
-This simple skill assessment will test the following skills/abilities:
+This task is intentionally small in scope. We are not looking for perfection; we want to see how you approach a problem, structure your code, and communicate what you have built.
 
-- The ability to read and understand documentation. *A couple of handy ones for this test would be:* [Laravel](https://laravel.com/docs/11.x/readme) | [PHP](https://www.php.net/manual/en/) | [VueJs](https://vuejs.org/guide/introduction.html) ~ [ *Preferably Composition API* ].
-- Your problem solving skills and your ability to handle difficult tasks.
-- Your knowledge and ability of Git version control.
-- PHP language skills and understanding.
-- JavaScript language skills and undertsanding.
-- Your understanding of MVC framework concepts *Models, Views, Controllers*, such as Laravel.
-- Your ability to work in a full stack environment.
-- Your ability to find bugs, work out why they are bugs/not valid code, then fix them.
-- Your ability to validate and sanitize form data from a frontend form.
-- Your understanding of responsive first design and building for devices of all sizes.
+---
 
-## The Brief
+## What to Build
 
-The objective of this exercise is to develop a straightforward form that can save and update customer information, such as name, email, phone, and address, to a database. The preferred technologies for this task are PHP, specifically with the Laravel framework for the server-side, and VueJS for the client-side.
+### Backend (Laravel)
 
-Please ensure that any client-side code adheres to the same principles as the server-side code. Additionally, it is essential to follow engineering best practices throughout the project.
+Create a Laravel application with a single notes resource. The application should:
 
-The principles we prioritize include security, performance, readability, testability, scalability, and simplicity. Please incorporate these principles into your solution.
+- Provide a RESTful API endpoint to create a new note (`POST /api/notes`)
+- Provide an endpoint to retrieve all notes (`GET /api/notes`)
+- Store notes in a database using a migration and an Eloquent model
 
-Furthermore, strive to achieve a clear separation of concerns between the various components of your solution. Utilizing the MVC pattern, for instance, can facilitate this separation.
+Each note should have at minimum:
 
-If Docker is not utilized, your application should retrieve and store data by reading from and writing to a file on disk, instead of utilizing a relational or NoSQL solution for the datastore.
+| Field | Type | Notes |
+|---|---|---|
+| `order_number` | string | Required. E.g. "ORD-1042" |
+| `message` | text | Required. The note content. |
+| `author` | string | Required. Name of the person leaving the note. |
+| `created_at` | timestamp | Auto-managed by Laravel. |
 
-## The Deliverable
+### Frontend
 
-* A .zip / git repository link (with access)
-* A covering note//README.md explaining the technology choices you have made. Please include any instructions required to run your solution and tests in a Linux environment.
+Build a simple single-page interface (in the same Laravel project, or as a standalone page) that:
+
+- Displays all existing notes in a list, showing the order number, author, message, and time posted
+- Includes a small form to submit a new note (order number, author name, and message fields)
+- Updates the list after a new note is submitted, without a full page reload
+
+> **Plain HTML/JS** is absolutely fine. Vue.js is a bonus, not a requirement.
+
+---
+
+## Optional Extras
+
+If you have time and want to show more, any of the following would impress us, but none are required:
+
+- Basic validation on the API (return a meaningful error if fields are missing)
+- A simple filter or search on the frontend (e.g. filter notes by order number)
+- Any use of a Vue.js component for the note list or form
+- A brief README explaining how to run the project locally
+
+---
+
+## What We Are Looking For
+
+| Area | What a good submission looks like |
+|---|---|
+| Code structure | Logical file and folder organisation; sensible naming |
+| Laravel basics | Correct use of routes, controller, migration, and model |
+| API design | Clean JSON responses; appropriate HTTP status codes |
+| Frontend | Functional form and list; no need for it to look polished |
+| Problem solving | Evidence of thinking through the task rather than copying boilerplate |
+| Communication | A README or code comments that briefly explain decisions made |
+
+---
+
+## Submitting Your Work
+
+1. Push your code to a public GitHub repository, or package it into a ZIP file.
+2. Include a short README with setup instructions (even just the standard Laravel steps).
+3. Reply to your application email with the link or attachment.
+4. If anything is incomplete, include a note explaining what you ran out of time on and how you would have approached it.
+
+We appreciate the time you've put in. Good luck, we look forward to seeing what you build!
+
+---
+
+## Quick-Start Reference
+
+If you need a reminder of the standard Laravel setup steps:
+
+```bash
+composer create-project laravel/laravel order-note-board
+cd order-note-board
+cp .env.example .env && php artisan key:generate
+# Edit .env with your DB credentials, then:
+php artisan migrate
+php artisan serve
+```
+
+> **SQLite tip:** If you don't have MySQL set up locally, SQLite is the easiest option. Set `DB_CONNECTION=sqlite` in your `.env` and create a blank `database/database.sqlite` file.
